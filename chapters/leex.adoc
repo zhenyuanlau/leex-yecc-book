@@ -1,1 +1,64 @@
 == Leex 实战
+
+=== 单词统计应用
+
+==== 词法文件
+.wc.xrl
+[source, erlang]
+----
+Definitions.
+
+Char = [a-zA-Z]
+EOL = \n
+
+Rules.
+
+{Char}+ :
+  {token, {word, TokenLen}}.
+{EOL} :
+  {token, {line, 1}}.
+. :
+  {token, {char, 1}}.
+
+Erlang code.
+
+-export([count/1]).
+
+count(String) ->
+  {ok, Tokens, _} = string(String),
+  LineCount = lists:sum([element(2, T) || T <- Tokens, element(1, T) == line]),
+  WordCount = lists:sum([1 || T <- Tokens, element(1, T) == word]),
+  CharCount = lists:sum([element(2, T) || T <- Tokens]),
+  io:format("Lines: ~p Words: ~p Chars: ~p~n", [LineCount, WordCount, CharCount]).
+----
+
+
+==== 构建
+
+.Makefile
+[source, makefile]
+----
+Q := @
+
+WC := wc.erl
+
+default: shell
+
+$(WC): wc.xrl
+	$(Q) mkdir -p ebin
+	$(Q) erlc -o $@ +'{verbose,true}' +'{report,true}' $<
+	$(Q) erlc -o ebin $(WC)
+
+shell: $(WC)
+	erl -pa ebin
+
+clean:
+	$(Q) rm -fr ebin $(WC)
+----
+
+==== 执行
+
+```bash
+$ make shell
+> wc:count("hello, leex!\n").
+```

@@ -5,8 +5,6 @@ EOL = \n
 
 Rules.
 
-% <Token Rules>
-
 {Char}+ :
   {token, {word, TokenLen}}.
 {EOL} :

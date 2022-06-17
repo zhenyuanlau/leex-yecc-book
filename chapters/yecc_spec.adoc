@@ -4,7 +4,7 @@
 
 === 语法分析器导出函数
 
-关注 `Module:parse(String)` 函数.
+关注 `Module:parse(Tokens)` 函数.
 
 .parser.erl
 [source, erlang]
