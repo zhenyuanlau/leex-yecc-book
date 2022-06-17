@@ -1,1 +1,67 @@
 == Yecc 参考
+
+`Yecc` 是 Erlang 的一个模块, 用于生成 LALR-1 语法分析器.
+
+=== 语法分析器导出函数
+
+关注 `Module:parse(String)` 函数.
+
+.parser.erl
+[source, erlang]
+```erlang
+-type yecc_ret() :: {'error', _} | {'ok', _}.
+-spec parse(Tokens :: list()) -> yecc_ret().
+```
+
+=== 语法文件格式
+
+.parser.yrl.template
+[source, erlang]
+----
+
+% <Header>
+
+% nonterminal categories
+
+Nonterminals sentence nounphrase verbphrase.
+
+% Terminal categories
+
+Terminals article adjective noun verb.
+
+% rootsymbol
+Rootsymbol sentence.
+
+% <Endsymbol>
+
+% operator precedence & associative
+
+% grammar rules
+
+Erlang code.
+
+% <Expect>
+
+----
+
+==== 结构要求
+
+`Nonterminals`/`Terminals`/`Rootsymbol` 必须要有.
+
+`<Grammer Rules>` 至少要有一条.
+
+==== 格式要求
+
+`Operator Precedence` 格式
+----
+associative precedence operator
+----
+
+`Grammer Rule` 格式
+----
+Left_hand_side -> Right_hand_side : Associated_code.
+----
+
+=== BNF 文法
+
+见 <BNF 文法>.
