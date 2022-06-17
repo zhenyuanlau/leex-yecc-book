@@ -1,0 +1,51 @@
+[preface]
+
+== 前言
+
+[.lead]
+Leex & Yecc 是 Erlang 版的 Flex & Yacc(Bison).
+
+Flex & Yacc 用于开发编译器和解释器, 适用于任何使用模式匹配输入的应用, 如计算器/解释器/编译器/领域特定语言.
+
+Flex & Yacc 应用领域, Leex & Yecc 亦可往之.
+
+=== 本书内容
+
+较 <Flex & Bison>, 本书先理解 Leex & Yecc 规范, 使用 Leex & Yecc, 增加语法可视化内容.
+
+具体内容如下:
+
+第一章, 简介语法分析相关知识.
+
+第二章, 简介 BNF 文法, W3C EBNF 记法, 语法可视化.
+
+第三章, 理解 Leex 规范, 熟悉 Leex 词法文件定义, 生成的词法解析器代码.
+
+第四章, 理解 Yecc 规范, 熟悉 Yecc 语法文件定义. 生成的语法解析器代码.
+
+第五章, Leex 实战, 使用 Leex 开发单词统计应用.
+
+第六章, Yecc 实战, 使用 Yecc 联合 Leex 开发计算器应用.
+
+第七章, 理解 LALR-1 分析算法.
+
+第八章, 基于 Yecc/Leex 实现 JSON 解释器.
+
+=== 排版约定
+
+本书应用了以下排版约定:
+
+标点符号: 使用英文标点加空格.
+
+=== 本书范例
+
+本书的范例程序可以在线获得:
+
+----
+https://www.github.com/zhenyuanlau/leex-yecc-book/code
+----
+
+=== 致谢
+* link:++https://web.iitd.ac.in/~sumeet/flex__bison.pdf++[Flex & Bison]
+* link:++https://github.com/happi/theBeamBook++[TheBeamBook]
+* link:++https://asciidoc.org/++[AsciiDoc]

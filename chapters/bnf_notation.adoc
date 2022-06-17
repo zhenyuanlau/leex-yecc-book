@@ -1,0 +1,87 @@
+== BNF 文法
+
+=== 语法描述
+
+.W3C EBNF Syntax
+[source, bison]
+----
+Grammar  ::= Production*
+Production
+         ::= NCName '::=' ( Choice | Link )
+NCName   ::= [http://www.w3.org/TR/xml-names/#NT-NCName]
+Choice   ::= SequenceOrDifference ( '|' SequenceOrDifference )*
+SequenceOrDifference
+         ::= (Item ( '-' Item | Item* ))?
+Item     ::= Primary ( '?' | '*' | '+' )*
+Primary  ::= NCName | StringLiteral | CharCode | CharClass | '(' Choice ')'
+StringLiteral
+         ::= '"' [^"]* '"' | "'" [^']* "'"
+CharCode ::= '#x' [0-9a-fA-F]+
+CharClass
+         ::= '[' '^'? ( Char | CharCode | CharRange | CharCodeRange )+ ']'
+Char     ::= [http://www.w3.org/TR/xml#NT-Char]
+CharRange
+         ::= Char '-' ( Char - ']' )
+CharCodeRange
+         ::= CharCode '-' CharCode
+Link     ::= '[' URL ']'
+URL      ::= [^#x5D:/?#]+ '://' [^#x5D#]+ ('#' NCName)?
+Whitespace
+         ::= S | Comment
+S        ::= #x9 | #xA | #xD | #x20
+Comment  ::= '/*' ( [^*] | '*'+ [^*/] )* '*'* '*/'
+----
+
+=== EBNF 相关概念
+
+==== 语法
+
+语法是产生规则的集合.
+
+==== 产生规则
+
+产生规则格式如下:
+
+----
+symbol ::= expression
+----
+
+==== 非终结符
+
+非终结符可以在规则的左手边, 也可以在规则的右手边.
+
+产生规则的左手边是一个符号, 右手边是一个表达式.
+
+表达式由终结符/非终结符/操作符构成.
+
+==== 终结符
+
+终结符出现在规则的右手边, 可以是符号/字符串/模式.
+
+==== 语法操作符
+
+.语法操作符表
+|===
+|操作符  | 说明
+|A?     | 可选 A
+|A B    | 匹配 A 后跟着 B
+|A \| B | 匹配 A 或者 B
+|A - B  | 匹配 A 不匹配 B
+|A+     | 至少匹配一个 A
+|A*     | 匹配 0 个或多个 A
+|===
+
+==== EBNF 代码示例
+
+.算术表达式语法
+[source, bison]
+----
+expression ::= term | term "+" expression
+term       ::= factor | factor "*" term
+factor     ::= constant | variable | "(" expression ")"
+variable   ::= "x" | "y" | "z"
+constant   ::= digit | digit constant
+digit      ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+----
+
+=== 语法可视化

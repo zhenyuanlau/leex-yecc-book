@@ -1,0 +1,44 @@
+= The Little Leex & Yecc
+ZhenyuanLua
+:doctype: book
+:description: 一本关于 Leex & Yecc 的小书
+:sectanchors:
+:url-repo: https://github.com/zhenyuanlau/leex-yecc
+
+:encoding: utf-8
+:lang: zh_CN
+:toc: left
+:toclevels: 3
+:experimental:
+:icons: font
+:partnums:
+:sectnums:
+:sectlinks:
+:!compat-mode:
+:source-highlighter: rouge
+:imagesdir: data/images
+:ditaa-shadows: false
+:ditaa-transparent: true
+:attribute-missing: warn
+:xrefstyle: short
+
+include::chapters/preface.adoc[]
+
+include::chapters/introduction.adoc[]
+
+include::chapters/bnf_notation.adoc[]
+
+include::chapters/leex_spec.adoc[]
+
+include::chapters/yecc_spec.adoc[]
+
+include::chapters/leex.adoc[]
+
+include::chapters/yecc.adoc[]
+
+include::chapters/lalr.adoc[]
+
+include::chapters/json_parser.adoc[]
+
+[bibliography]
+include::chapters/references.adoc[]

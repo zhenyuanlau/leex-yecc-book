@@ -1,0 +1,9 @@
+== 参考
+
+link:https://www.w3.org/TR/2010/REC-xquery-20101214/#EBNFNotation[W3C EBNF Notation]
+
+link:https://bottlecaps.de/rr/ui[Railroad Diagram Generator]
+
+link:https://www.erlang.org/doc/man/leex.html[EDoc Leex]
+
+link:https://www.erlang.org/doc/man/yecc.html[EDoc Yecc]
