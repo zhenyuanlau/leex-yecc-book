@@ -123,7 +123,7 @@ NAME = VALUE
 
 === 重点
 
-`Token` 是用户自定义的， 可以是任意 Erlang 类型.
+`Token` 是用户自定义的， 是一个 Erlang 元组.
 
 正则表达式关联的 Erlang 代码, 可以使用变量 `TokenChars`/`TokenLen`/`TokenLine`.
 

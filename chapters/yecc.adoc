@@ -1,1 +1,115 @@
 == Yecc 实战
+
+计算器应用.
+
+=== 语法文件
+
+.calc_parser.yrl
+[source, erlang]
+----
+Nonterminals expression term number.
+
+Terminals integer float '+' '-' '*' '/'.
+
+Rootsymbol expression.
+
+expression -> expression '+' term : '$1' + '$3'.
+expression -> expression '-' term : '$1' - '$3'.
+expression -> term : '$1'.
+
+term -> term '*' number : '$1' * '$3'.
+term -> term '/' number : '$1' / '$3'.
+term -> number : '$1'.
+
+number -> integer : ?exprs('$1').
+number -> float : ?exprs('$1').
+
+Erlang code.
+
+-export([eval/1]).
+
+-define(id(Token), element(1, Token)).
+-define(location(Token), element(2, Token)).
+-define(exprs(Token), element(3, Token)).
+
+eval(String) ->
+    {ok, Tokens, _} = calc_tokenizer:string(String),
+    io:format("Tokens: ~w~n", [Tokens]),
+    case calc_parser:parse(Tokens) of
+        {ok, Forms} ->
+            io:format("Forms: ~w~n", [Forms]);
+        {error, Error} ->
+            io:format("Error: ~p~n", [Error])
+    end.
+----
+
+=== 词法文件
+
+.calc_tokenizer.xrl
+[source, erlang]
+----
+Definitions.
+
+D = [0-9]
+WhiteSpace = [\s\t]
+OpCode = [\+\*\-/]
+
+Rules.
+
+{D}+ :
+    {token,{integer, TokenLine, list_to_integer(TokenChars)}}.
+
+{D}+\.{D}+((E|e)(\+|\-)?{D}+)? :
+    {token,{float, TokenLine, list_to_float(TokenChars)}}.
+
+{WhiteSpace} : skip_token.
+{OpCode} :
+    {token, {list_to_atom(TokenChars), TokenLine, list_to_atom(TokenChars)}}.
+
+Erlang code.
+----
+
+=== 构建
+
+.Makefile
+[source, makefile]
+----
+Q := @
+
+WC := wc.erl
+
+CALC_TOKENIZER := calc_tokenizer.erl
+CALC_PARSER := calc_parser.erl
+
+default: shell
+
+$(WC): wc.xrl
+	$(Q) mkdir -p ebin
+	$(Q) erlc -o $@ +'{verbose,true}' +'{report,true}' $<
+	$(Q) erlc -o ebin $(WC)
+
+calc: $(CALC_PARSER) $(CALC_TOKENIZER)
+
+$(CALC_TOKENIZER): calc_tokenizer.xrl
+	$(Q) mkdir -p ebin
+	$(Q) erlc -o $@ +'{verbose,true}' +'{report,true}' $<
+	$(Q) erlc -o ebin $(CALC_TOKENIZER)
+
+$(CALC_PARSER): calc_parser.yrl
+	$(Q) mkdir -p ebin
+	$(Q) erlc -o $@ +'{verbose,true}' +'{report,true}' $<
+	$(Q) erlc -o ebin $(CALC_PARSER)
+
+shell: $(WC) $(CALC_TOKENIZER) $(CALC_PARSER)
+	$(Q) erl -pa ebin
+
+clean:
+	$(Q) rm -fr ebin $(WC) $(CALC_PARSER) $(CALC_TOKENIZER)
+----
+
+=== 执行
+
+----
+$ make
+> calc_parser:eval("1 + 1").
+----
