@@ -49,7 +49,7 @@ $(WC): wc.xrl
 	$(Q) erlc -o $@ +'{verbose,true}' +'{report,true}' $<
 	$(Q) erlc -o ebin $(WC)
 
-shell: $(WC)
+shell: clean $(WC)
 	erl -pa ebin
 
 clean:

@@ -36,9 +36,9 @@ include::chapters/leex.adoc[]
 
 include::chapters/yecc.adoc[]
 
-include::chapters/lalr.adoc[]
-
 include::chapters/json_parser.adoc[]
+
+include::chapters/lalr.adoc[]
 
 [bibliography]
 include::chapters/references.adoc[]
