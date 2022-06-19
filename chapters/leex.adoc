@@ -1,8 +1,7 @@
-== Leex 实战
+== Leex 实战--单词统计应用
 
-=== 单词统计应用
+=== 词法文件
 
-==== 词法文件
 .wc.xrl
 [source, erlang]
 ----
@@ -33,7 +32,7 @@ count(String) ->
 ----
 
 
-==== 构建
+=== 构建
 
 .Makefile
 [source, makefile]

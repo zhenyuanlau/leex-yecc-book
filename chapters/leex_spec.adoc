@@ -1,15 +1,8 @@
 == Leex 参考
 
-`Leex` 是 Erlang 的一个模块，基于正则表达式生成词法解析器.
+`Leex` 是 Erlang 的一个模块，基于正则表达式生成词法解析器。
 
 === 词法解析器导出函数
-
-关注 `Module:string(String)` 函数.
-
-[source, erlang]
-----
-Module:string(String) -> StringRet
-----
 
 .tokenizer.erl
 [source, erlang]
@@ -39,15 +32,17 @@ Erlang code.
 
 ==== 结构要求
 
-`Definitions`/`Rules`/`Erlang code` 必须要有.
+`Definitions`/`Rules`/`Erlang code` 必须要有。
 
-`<Header>`/`<Macro Definitions>`/`<Erlang Code>` 是可选的.
+`<Header>`/`<Macro Definitions>`/`<Erlang Code>` 是可选的。
 
-`Token Rules` 至少要有一条.
+`Token Rules` 至少要有一条。
 
 ==== 格式要求
 
 ===== `Macro Definition` 格式
+
+.Macro Definition
 ----
 NAME = VALUE
 ----
@@ -56,48 +51,49 @@ NAME = VALUE
 
 忽略 `PushBackList` 相关内容.
 
+.Token Rule
 ----
 <Regexp> : <Erlang code>.
 ----
 
-如果 `<Regexp>` 匹配成功， 则求值关联的 `<Erlang code>`.
+如果 `<Regexp>` 匹配成功，则求值关联的 `<Erlang code>`。
 
-在 `<Erlang code>` 中，可以使用变量:
+在 `<Erlang code>` 中，可以使用变量：
 
-* TokenChars
-* TokenLen
-* TokenLine
+* `TokenChars`
+* `TokenLen`
+* `TokenLine`
 
-`<Erlang code>` 返回值:
+`<Erlang code>` 返回值必须是下面的一种：
 
-* {token, Token}
-* {end_token, Token}
-* skip_token
-* {error, ErrString}
+* `{token, Token}`
+* `{end_token, Token}`
+* `skip_token`
+* `{error, ErrString}`
 
 === 正则表达式
 
-在这里，合法的正则表达式是 `egrep`/`awk` 正则表达式的一个子集.
-
 ==== 正则表达式
 
-.正则表达式
+在这里，合法的正则表达式是 `egrep`/`awk` 正则表达式的一个子集。
+
+.合法的正则表达式
 |===
 |表达式  | 说明
-|`c`    |Matches the non-metacharacter c.
-|`\c`   |Matches the escape sequence or literal character c.
-|`.`    |Matches any character.
-|`^`    |Matches the beginning of a string.
-|`$`    |Matches the end of a string.
+|`c`    |Matches the non-metacharacter c
+|`\c`   |Matches the escape sequence or literal character c
+|`.`    |Matches any character
+|`^`    |Matches the beginning of a string
+|`$`    |Matches the end of a string
 |`[abc...]`|Character class, which matches any of the characters abc....
- Character ranges are specified by a pair of characters separated by a -.
+ Character ranges are specified by a pair of characters separated by a -
 |`[^abc...]`|Negated character class, which matches any character except abc....
-|`r1 \| r2`  |Alternation. It matches either r1 or r2.
-|`r1r2`      |Concatenation. It matches r1 and then r2.
-|`r+`|Matches one or more rs.
-|`r*` |Matches zero or more rs.
-|`r?` |Matches zero or one rs.
-|`(r)`|Grouping. It matches r.
+|`r1 \| r2`  |Alternation. It matches either r1 or r2
+|`r1r2`      |Concatenation. It matches r1 and then r2
+|`r+`|Matches one or more rs
+|`r*` |Matches zero or more rs
+|`r?` |Matches zero or one rs
+|`(r)`|Grouping. It matches r
 |===
 
 ==== 转义序列
@@ -105,32 +101,33 @@ NAME = VALUE
 .转义序列
 |===
 |字符序列  | 说明
-|`\b` |Backspace.
-|`\f` |Form feed.
-|`\n` |Newline (line feed).
-|`\r` |Carriage return.
-|`\t` |Tab.
-|`\e` |Escape.
-|`\v` |Vertical tab.
-|`\s` |Space.
-|`\d` |Delete.
-|`\ddd`|The octal value ddd.
-|`\xhh`|The hexadecimal value hh.
-|`\x{h...}`|The hexadecimal value h....
-|`\c` |Any other character literally, for example \\ for backslash, \" for ".
+|`\b` |Backspace
+|`\f` |Form feed
+|`\n` |Newline (line feed)
+|`\r` |Carriage return
+|`\t` |Tab
+|`\e` |Escape
+|`\v` |Vertical tab
+|`\s` |Space
+|`\d` |Delete
+|`\ddd`|The octal value ddd
+|`\xhh`|The hexadecimal value hh
+|`\x{h...}`|The hexadecimal value h...
+|`\c` |Any other character literally, for example \\ for backslash, \" for "
 |===
 
 
 === 重点
 
-`Token` 是用户自定义的， 是一个 Erlang 元组.
+`Token` 是用户自定义的，是一个 Erlang 元组, 一般为 `{atom, TokenLine, TokenChars}`。
 
-正则表达式关联的 Erlang 代码, 可以使用变量 `TokenChars`/`TokenLen`/`TokenLine`.
+正则表达式关联的 Erlang 代码，可以使用变量 `TokenChars`/`TokenLen`/`TokenLine`。
 
-正则表达式关联的 Erlang 代码，必须返回::
+正则表达式关联的 Erlang 代码，必须返回如下值：
+
 * `{token, Token}`
 * `{end_token, Token}`
 * `skip_token`
 * `{error, ErrString}`
 
-生成的词法解析器导出函数 `Module:string(String) -> {ok, [Token], EndLine} | ErrorInfo`.
+生成的词法解析器导出函数 `Module:string(String) -> {ok, [Token], EndLine} | ErrorInfo`。
