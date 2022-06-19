@@ -16,7 +16,7 @@ ZhenyuanLua
 :sectlinks:
 :!compat-mode:
 :source-highlighter: rouge
-:imagesdir: data/images
+:imagesdir: resources/images
 :ditaa-shadows: false
 :ditaa-transparent: true
 :attribute-missing: warn

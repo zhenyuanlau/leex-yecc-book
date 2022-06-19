@@ -18,7 +18,7 @@
 
 ## PDF
 
-[LeexAndYecc](https://github.com/zhenyuanlau/leex-yecc-book/blob/main/LeexAndYecc.pdf)
+- [ ] 样式
 
 ## Code
 

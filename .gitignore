@@ -2,3 +2,4 @@ code/wc.erl
 code/calc_*.erl
 code/json_*.erl
 code/ebin
+*.pdf

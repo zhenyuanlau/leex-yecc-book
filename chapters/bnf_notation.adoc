@@ -1,5 +1,5 @@
 == BNF 文法
-:imagesdir: ../data/images
+:imagesdir: ../resources/images
 
 === 语法描述
 
