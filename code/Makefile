@@ -8,6 +8,8 @@ CALC_PARSER := calc_parser.erl
 JSON_TOKENIZER := json_tokenizer.erl
 JSON_PARSER := json_parser.erl
 
+UNI_TOKENIZER := uni_tokenizer.erl
+UNI_PARSER := uni_parser.erl
 
 default: shell
 
@@ -20,6 +22,23 @@ calc: $(CALC_PARSER) $(CALC_TOKENIZER)
 
 json: $(JSON_PARSER) $(JSON_TOKENIZER)
 
+uni: $(UNI_TOKENIZER) $(UNI_PARSER)
+
+
+$(UNI_TOKENIZER): uni_tokenizer.xrl
+	$(Q) rm $@
+	$(Q) erlc -o $@ +'{verbose,true}' +'{report,true}' $<
+
+$(UNI_PARSER): uni_parser.yrl
+	$(Q) rm $@
+	$(Q) erlc -o $@ +'{verbose,true}' +'{report,true}' $<
+
+unid:
+	$(Q) rm -fr ebin/uni_*.beam
+	$(Q) mkdir -p ebin
+	$(Q) erlc +debug_info -o ebin $(UNI_TOKENIZER)
+	$(Q) erlc +debug_info -o ebin $(UNI_PARSER)
+	$(Q) erl -pa ebin
 
 $(CALC_TOKENIZER): calc_tokenizer.xrl
 	$(Q) mkdir -p ebin

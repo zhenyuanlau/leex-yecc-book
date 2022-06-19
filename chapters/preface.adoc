@@ -29,7 +29,7 @@ Flex & Yacc 应用领域, Leex & Yecc 亦可往之.
 
 第七章, 基于 Yecc/Leex 实现 JSON 解释器.
 
-第八章, 理解 LALR-1 分析算法.
+第八章, 理解 LALR 解析算法.
 
 === 排版约定
 
