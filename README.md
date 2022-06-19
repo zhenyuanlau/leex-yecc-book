@@ -15,6 +15,10 @@
 - [x] 第八章，理解 LALR 分析算法
 - [ ] 校勘
 
+## ADoc
+
+[Document](https://github.com/zhenyuanlau/leex-yecc-book/blob/main/document.adoc)
+
 ## PDF
 
 - [ ] 样式调整
