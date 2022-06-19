@@ -26,15 +26,15 @@ include::chapters/preface.adoc[]
 
 include::chapters/introduction.adoc[]
 
-include::chapters/bnf_notation.adoc[]
+include::chapters/bnf.adoc[]
 
 include::chapters/leex_spec.adoc[]
 
 include::chapters/yecc_spec.adoc[]
 
-include::chapters/leex.adoc[]
+include::chapters/leex_in_action.adoc[]
 
-include::chapters/yecc.adoc[]
+include::chapters/yecc_in_action.adoc[]
 
 include::chapters/json_parser.adoc[]
 
