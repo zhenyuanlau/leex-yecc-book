@@ -14,6 +14,7 @@
 - [x] 第七章，基于 Yecc/Leex 实现 JSON 解释器
 - [x] 第八章，理解 LALR 分析算法
 - [ ] 校勘
+- [ ] PDF 样式
 
 ## ADoc
 
@@ -21,7 +22,11 @@
 
 ## PDF
 
-- [ ] 样式调整
+```bash
+make
+
+open LeexAndYecc.pdf
+```
 
 ## Code
 

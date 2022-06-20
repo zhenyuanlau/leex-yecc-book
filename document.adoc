@@ -40,5 +40,8 @@ include::chapters/json_parser.adoc[]
 
 include::chapters/lalr.adoc[]
 
+[appendix]
+include::chapters/yeccpre.adoc[]
+
 [bibliography]
 include::chapters/references.adoc[]
